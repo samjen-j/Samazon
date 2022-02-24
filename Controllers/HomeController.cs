@@ -17,20 +17,21 @@ namespace Samazon.Controllers
             Repo = temp;
         }
     
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string category, int pageNum = 1)
         {
             int pageSize = 10;
 
             var x = new BooksViewModel
             {
                 Books = Repo.Books
+                .Where(b => b.Category == category || category == null)
                 .OrderBy(b => b.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
 
                 PageInfo = new PageInfo
                 {
-                    TotalNumBooks = Repo.Books.Count(),
+                    TotalNumBooks = (category == null ? Repo.Books.Count() : Repo.Books.Where(x => x.Category == category).Count()),
                     BooksPerPage = pageSize,
                     CurrentPage = pageNum,
                 }
