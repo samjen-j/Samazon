@@ -1,0 +1,55 @@
+﻿
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th colspan="5 class="text-center">@TableTitle</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Orders?.Count() > 0)
+        {
+            @foreach (Checkout c in Orders)
+            {
+                <tr>
+                    <td>@c.Name</td>
+                    <td>@c.ZipCode</td>
+                    <th>Book</th>
+                    <th>Quantity</th>
+                </tr>
+
+
+                @foreach (CartLineItem cli in c.Lines)
+                {
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>@cli.Book.Title</td>
+                        <td>@cli.Quantity</td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="test-center">No Orders to Show</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+    [Parameter]
+    public string TableTitle { get; set; } = "Orders";
+
+    [Parameter]
+    public IEnumerable<Checkout> Orders { get; set; }
+
+    [Parameter]
+    public string ButtonLabel { get; set; } = "Finished";
+
+    [Parameter]
+    public EventCallback<int> OrderSelected { get; set; }
+}

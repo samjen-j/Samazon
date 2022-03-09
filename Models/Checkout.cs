@@ -33,5 +33,8 @@ namespace Samazon.Models
 
         [Required(ErrorMessage = "Please enter Country")]
         public string Country { get; set; }
+
+        [BindNever]
+        public bool OrderReceived { get; set; } = false;
     }
 }

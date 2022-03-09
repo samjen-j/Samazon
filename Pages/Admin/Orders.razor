@@ -1,0 +1,39 @@
+﻿@page "/admin/orders"
+
+@inherits OwningComponentBase<ICheckoutRepository>
+
+<OrderTable TableTitle="Unfinished Orders" Orders="UnfinishedOrders" ButtonLabel="Finished" OrderSelected="ResetOrder"></OrderTable>
+
+<OrderTable TableTitle="Finished Orders" Orders="FinishedOrders" ButtonLabel="Reset" OrderSelected="FinishOrder"></OrderTable>
+
+<button class="btn btn-info" @onclick ="@(x=>UpdateData())">Refresh Data</button>
+
+@code {
+    public ICheckoutRepository repo => Service;
+
+    public IEnumerable<Checkout> AllOrders { get; set; }
+    public IEnumerable<Checkout> UnfinishedOrders { get; set; }
+    public IEnumerable<Checkout> FinishedOrders { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        AllOrders = await repo.Checkouts.ToListAsync();
+        UnfinishedOrders = AllOrders.Where(x => !x.OrderReceived);
+        FinishedOrders = AllOrders.Where(x => x.OrderReceived);
+    }
+
+    public void FinishOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+
+    private void UpdateOrder (int id, bool finished)
+    {
+        Checkout c = repo.Checkouts.FirstOrDefault(x => x.CheckoutId == id);
+        c.OrderReceived = finished;
+        repo.SaveCheckout(c);
+    }
+}
