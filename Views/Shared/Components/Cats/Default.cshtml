@@ -3,11 +3,11 @@
 
 @model IEnumerable<string> 
 
-<div class="btn-block">
-    <a asp-controller="Home" asp-action="Index" asp-route-Category="" asp-route-pageNum="1" class="btn btn-outline-secondary">Home</a>
+<div class="">
+    <a asp-controller="Home" asp-action="Index" asp-route-Category="" asp-route-pageNum="1" class="btn btn-outline-primary" style="width:200px">Home</a><br />
 
     @foreach (string c in Model)
     {
-        <a asp-controller="Home" asp-action="Index" asp-route-Category="@c" asp-route-pageNum="1" class="btn @(ViewBag.CategorySelect == c ? "btn-primary" : "btn-outline-secondary")">@c </a>
+        <a asp-controller="Home" asp-action="Index" asp-route-Category="@c" asp-route-pageNum="1" style="width:200px" class="btn @(ViewBag.CategorySelect == c ? "btn-dark" : "btn-outline-secondary")">@c </a><br />
     }
 </div>

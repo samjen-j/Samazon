@@ -1,17 +1,19 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="bg-info text-white p-2">
+<div class="bg-info text-white p-2" style="font-family:'Exo';">
     <span class="navbar-brand m-lg-2">Samazon Administration</span> 
 
 </div>
 
-<div class="container-fluid">
-    <div class="row p-2">
-        <div class="col-3 d-grid">
+<div class="container-fluid" style="font-family:'Exo';">
+    <div class="row p-2 d-grid">
+        <div class="col-3 ">
 
+            <div class="d-grid">
             <NavLink class="btn btn-outline-primary" href="/admin/books" ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">Books</NavLink>
             <NavLink class="btn btn-outline-primary" href="/admin/orders" ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">Orders</NavLink>
-        </div>
+            </div>
+        </div> 
 
         <div class="col">
             @Body

@@ -13,5 +13,22 @@ namespace Samazon.Models
             Context = temp;
         }
         public IQueryable<Book> Books => Context.Books;
+
+        public void SaveBook(Book b)
+        {
+            Context.SaveChanges();
+        }
+
+        public void AddBook(Book b)
+        {
+            Context.Add(b);
+            Context.SaveChanges();
+        }
+
+        public void DeleteBook(Book b)
+        {
+            Context.Remove(b);
+            Context.SaveChanges();
+        }
     }
 }
